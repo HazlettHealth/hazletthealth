@@ -1784,8 +1784,10 @@ function sanitiseBody(html) {
 
 function openModal(i) {
   const a = articles[i];
-  const url = encodeURIComponent(window.location.href);
-  const title = encodeURIComponent(a.title);
+const slug = slugify(a.title);
+history.pushState({ articleIndex: i }, a.title, '?article=' + slug);
+const url = encodeURIComponent(window.location.href);
+const title = encodeURIComponent(a.title);
   document.getElementById('modalTag').textContent = a.tag;
   document.getElementById('modalTag').className = 'modal-tag ' + a.tagClass;
   document.getElementById('modalTitle').textContent = a.title;
@@ -1838,8 +1840,7 @@ function loadComments(a) {
     window.CUSDIS.initial();
   }
 }
-
-function closeModal() { document.getElementById('modalOverlay').classList.remove('open'); document.body.style.overflow = ''; document.getElementById('commentsMount').innerHTML = ''; }
+function closeModal() { history.pushState({}, document.title, window.location.pathname); document.getElementById('modalOverlay').classList.remove('open'); document.body.style.overflow = ''; document.getElementById('commentsMount').innerHTML = ''; }
 function closeModalOnBg(e) { if (e.target === document.getElementById('modalOverlay')) closeModal(); }
 
 function openLightbox(id) {
@@ -2061,6 +2062,12 @@ document.addEventListener('keydown', e => {
 
 // ── INIT ──
 renderArticles();
+const _params = new URLSearchParams(window.location.search);
+const _articleParam = _params.get('article');
+if (_articleParam) {
+  const _idx = articles.findIndex(a => slugify(a.title) === _articleParam);
+  if (_idx !== -1) openModal(_idx);
+}
 </script>
 <script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
 <script>
