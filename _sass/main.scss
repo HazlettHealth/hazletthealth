@@ -1638,6 +1638,26 @@ footer {
   fill: currentColor;
 }
 
+.pagination {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--stone-200, #e5e1da);
+  align-items: center;
+}
+.pagination a {
+  font-size: 0.8rem;
+  color: var(--stone-500, #8a7f72);
+}
+.pagination a:hover {
+  color: var(--stone-600);
+}
+.pagination .next {
+  text-align: right;
+}
+
 .about-cards-row.expanded .about-card-arrow {
   display: none;
 }
