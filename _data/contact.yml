@@ -1,0 +1,29 @@
+label: Contact
+heading: "Get in touch"
+
+intro: >-
+  If you are interested in medical cannabis, please reach out. I am happy to
+  connect with patients, clinicians or others working in the field.
+
+# Each link card has a label, a sub-line, a url, and an `icon` key that maps to
+# an inline SVG in _includes/contact.html (linkedin | email | calendar).
+links:
+  - icon: linkedin
+    url: "https://www.linkedin.com/in/richardhazlett/"
+    external: true
+    label: "LinkedIn"
+    sub: "linkedin.com/in/richardhazlett"
+  - icon: email
+    url: "mailto:richard@hazletthealth.co.uk"
+    label: "Email"
+    sub: "richard@hazletthealth.co.uk"
+  - icon: calendar
+    url: "https://calendly.com/richardhazlett/30min"
+    external: true
+    label: "Book a 30-minute call"
+    sub: "calendly.com/richardhazlett"
+
+# With `form_action` unset, the contact form opens the visitor's email app via a
+# mailto: link (no server required), like the original. Set it to a form-handler
+# endpoint to POST submissions there instead (mailto stays as the fallback).
+# form_action: "https://forms.oniccah.com/f/0w37xdA7lT4-"
