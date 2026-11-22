@@ -1,0 +1,51 @@
+{%- comment -%}
+  Per-page SEO values fall back to site defaults.
+  Posts set their own title/excerpt (used as the meta description) and may set
+  `image:` for social cards; everything else comes from _config.yml.
+{%- endcomment -%}
+{%- if page.title and page.url != "/" -%}
+  {%- assign full_title = page.title | append: " — " | append: site.short_name -%}
+{%- else -%}
+  {%- assign full_title = site.title -%}
+{%- endif -%}
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+{%- if page.url == "/" %}
+{%- comment -%}
+  Legacy links: the old single-page site addressed articles as /?article=<slug>.
+  Send those (already indexed by Google) to the matching /articles/<slug> page.
+{%- endcomment %}
+<script>
+(function () {
+  var m = location.search.match(/[?&]article=([^&#]*)/);
+  if (!m) return;
+  var urls = { {% for p in site.posts %}{{ p.slug | downcase | jsonify }}: {{ p.url | relative_url | jsonify }}{% unless forloop.last %}, {% endunless %}{% endfor %} };
+  var slug = decodeURIComponent(m[1]).toLowerCase();
+  if (urls[slug]) location.replace(urls[slug]);
+})();
+</script>
+{%- endif %}
+
+{%- if site.staging %}
+<meta name="robots" content="noindex">
+{%- endif %}
+
+{%- include analytics.html -%}
+
+<meta name="referrer" content="strict-origin-when-cross-origin">
+
+<title>{{ full_title }}</title>
+{%- comment -%}
+  jekyll-seo-tag: description, canonical, Open Graph / Twitter cards (with
+  image), article dates, Google verification and JSON-LD. title=false keeps
+  the shorter <title> built above.
+{%- endcomment %}
+{% seo title=false %}
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
